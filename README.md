@@ -2,13 +2,7 @@
 infra/
 └── terraform/
     ├── env/
-    │   ├── dev/
-    │   │   ├── main.tf
-    │   │   ├── providers.tf
-    │   │   ├── variables.tf
-    │   │   ├── terraform.tfvars
-    │   │   └── outputs.tf
-    │   └── prod/
+    │   ├── prod/
     │       ├── main.tf
     │       ├── providers.tf
     │       ├── variables.tf
@@ -16,6 +10,11 @@ infra/
     │       └── outputs.tf
     │
     └── modules/
+        ├── iam/
+        │   ├── main.tf
+        │   ├── variables.tf
+        │   └── outputs.tf
+        |
         ├── network/
         │   ├── main.tf
         │   ├── variables.tf
@@ -26,7 +25,7 @@ infra/
         │   ├── variables.tf
         │   └── outputs.tf
         │
-        ├── cloud_sql/
+        ├── postgres/
         │   ├── main.tf
         │   ├── variables.tf
         │   └── outputs.tf

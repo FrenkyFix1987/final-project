@@ -1,19 +1,19 @@
-variable "instance_name" {
-  default = "postgres-instance"
+variable "project_id" {
+  type = string
 }
 variable "region" {
-  default = "europe-west1"
+  type = string
 }
-variable "tier" {
-  default = "db-f1-micro"
+variable "instance_name" {
+  type = string
+}
+variable "sa_email" {
+  type = string
+}
+variable "vpc_self_link" {
+  type = string
 }
 
-variable "db_name" {
-  default = "app_db"
-}
-variable "db_user" {
-  default = "app_user"
-}
-variable "db_password" {
-  sensitive = true
+variable "private_vpc_connection_id" {
+  type = string
 }

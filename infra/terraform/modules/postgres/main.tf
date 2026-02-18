@@ -1,30 +1,35 @@
-resource "google_sql_database_instance" "this" {
+resource "google_sql_database_instance" "db" {
   name             = var.instance_name
   database_version = "POSTGRES_15"
   region           = var.region
+  deletion_protection = false
 
   settings {
-    tier = var.tier
-
-    backup_configuration {
-      enabled = false
+    tier = "db-f1-micro"
+    database_flags {
+      name  = "cloudsql.iam_authentication"
+      value = "on"
     }
-
     ip_configuration {
-      ipv4_enabled = true
+      ipv4_enabled    = false
+      private_network = var.vpc_self_link
     }
   }
-
-  deletion_protection = false
+  depends_on = [
+    var.private_vpc_connection_id
+  ]
 }
 
-resource "google_sql_database" "db" {
-  name     = var.db_name
-  instance = google_sql_database_instance.this.name
+resource "google_sql_database" "database" {
+  name     = "app_db"
+  instance = google_sql_database_instance.db.name
 }
 
-resource "google_sql_user" "user" {
-  name     = var.db_user
-  instance = google_sql_database_instance.this.name
-  password = var.db_password
+resource "google_sql_user" "iam_user" {
+  name     = trimsuffix(var.sa_email, ".gserviceaccount.com")
+  instance = google_sql_database_instance.db.name
+  type     = "CLOUD_IAM_SERVICE_ACCOUNT"
+  # Ensure the DB and flags are settled
+  depends_on = [google_sql_database.database]
+  database_roles = ["cloudsqlsuperuser"]
 }

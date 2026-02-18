@@ -1,11 +1,9 @@
 variable "project_id" {
-  type = string
+  type        = string
+  description = "The GCP Project ID"
 }
 
 variable "region" {
-  type = string
-}
-
-variable "labels" {
-  type = map(string)
+  type    = string
+  default = "europe-west1"
 }
