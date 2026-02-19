@@ -1,4 +1,5 @@
-data "google_cloudbuildv2_connection" "github" {
+resource "google_cloudbuildv2_connection" "github" {
+  provider = google-beta
   name     = "CloudBuildDeploy"
   location = var.region
   project  = var.project_id
@@ -6,7 +7,7 @@ data "google_cloudbuildv2_connection" "github" {
 
 resource "google_cloudbuildv2_repository" "repo" {
   name              = var.repository_name
-  parent_connection = data.google_cloudbuildv2_connection.github.id
+  parent_connection = google_cloudbuildv2_connection.github.id
   remote_uri        = "https://github.com/${var.repository_owner}/${var.repository_name}"
 }
 
