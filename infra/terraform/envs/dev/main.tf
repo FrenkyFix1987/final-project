@@ -90,3 +90,16 @@ module "gke-k8s" {
   }
   depends_on = [ module.gke ]
 }
+
+module "cloudbuild" {
+  source = "../../modules/cloudbuild"
+
+  project_id       = var.project_id
+  region           = var.region
+  repository_name  = "final-project"
+  repository_owner = "FrenkyFix1987"
+  cloudbuild_sa    = module.iam.cloud_build_sa
+
+  cluster_name     = module.gke.cluster_name
+  cluster_location = var.region
+}
