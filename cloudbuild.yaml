@@ -41,6 +41,20 @@ steps:
         '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:latest'
       ]
 
+  # -------------------------
+  # Restart Backend Deployment
+  # -------------------------
+  - name: 'gcr.io/cloud-builders/kubectl'
+    id: 'Restart Backend Deployment'
+    args: ['rollout','restart','deployment/backend','-n','prod']
+
+  # -------------------------
+  # Restart Frontend Deployment
+  # -------------------------
+  - name: 'gcr.io/cloud-builders/kubectl'
+    id: 'Restart Frontend Deployment'
+    args: ['rollout','restart','deployment/frontend','-n','prod']
+
 options:
   logging: "CLOUD_LOGGING_ONLY"
 

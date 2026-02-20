@@ -16,7 +16,8 @@ spec:
       serviceAccountName: backend-sa  # ← KSA, связанный с GSA
       containers:
         - name: backend
-          image: europe-west1-docker.pkg.dev/project-e2164ea6-30f3-429d-b71/app-repo/fin-proj-back:1.2
+          image: europe-west1-docker.pkg.dev/project-e2164ea6-30f3-429d-b71/app-repo/backend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           resources:

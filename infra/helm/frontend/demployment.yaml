@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: europe-west1-docker.pkg.dev/project-e2164ea6-30f3-429d-b71/app-repo/fin-proj-front:1.2
+        image: europe-west1-docker.pkg.dev/project-e2164ea6-30f3-429d-b71/app-repo/frontend:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 
