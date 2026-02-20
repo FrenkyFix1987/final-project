@@ -44,15 +44,12 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     id: 'Get GKE Credentials'
     entrypoint: 'bash'
-    env:
-      - 'CLOUDSDK_CORE_PROJECT=$PROJECT_ID'
-      - 'CLOUDSDK_COMPUTE_REGION=$_REGION'
     args:
       - '-c'
       - |
         gcloud container clusters get-credentials prod-cluster \
-          --region $CLOUDSDK_COMPUTE_REGION \
-          --project $CLOUDSDK_CORE_PROJECT
+          --region $PROJECT_ID \
+          --project $_REGION
 
   # -------------------------
   # Restart Backend Deployment
