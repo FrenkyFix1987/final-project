@@ -41,6 +41,16 @@ steps:
         '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:latest'
       ]
 
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'Get GKE Credentials'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud container clusters get-credentials prod-cluster \
+          --region $_REGION \
+          --project $PROJECT_ID
+
   # -------------------------
   # Restart Backend Deployment
   # -------------------------
