@@ -44,6 +44,10 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     id: 'Get GKE Credentials'
     entrypoint: 'bash'
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=$_REGION'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=$_CONTAINER_CLUSTER'
+      - 'CLOUDSDK_CORE_PROJECT=$PROJECT_ID'
     args:
       - '-c'
       - |
