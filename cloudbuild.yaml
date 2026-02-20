@@ -51,9 +51,9 @@ steps:
     args:
       - '-c'
       - |
-        gcloud container clusters get-credentials prod-cluster \
-          --region $_REGION \
-          --project $PROJECT_ID
+        gcloud container clusters get-credentials $CLOUDSDK_CONTAINER_CLUSTER \
+        --region $CLOUDSDK_COMPUTE_REGION \
+        --project $CLOUDSDK_CORE_PROJECT
 
   # -------------------------
   # Restart Backend Deployment
