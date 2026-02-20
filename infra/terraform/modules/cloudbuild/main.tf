@@ -19,9 +19,10 @@ resource "google_cloudbuildv2_repository" "repo" {
 }
 
 resource "google_cloudbuild_trigger" "app_trigger" {
-  name     = "${var.repository_name}-trigger"
+  name     = "frontend-backend-trigger"
   location = var.region
   project  = var.project_id
+  filename = "cloudbuild.yaml"
 
   service_account = var.cloudbuild_sa
 
@@ -33,5 +34,8 @@ resource "google_cloudbuild_trigger" "app_trigger" {
     }
   }
 
-  filename = "cloudbuild.yaml"
+  substitutions = {
+    _REGION     = var.region
+    _REPO_NAME  = var.repo_name
+  }
 }

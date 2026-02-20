@@ -38,3 +38,7 @@ variable "installation_id" {
 variable "cloudbuild_tocken" {
   type = string
 }
+
+variable "repo_name" {
+  type = string
+}

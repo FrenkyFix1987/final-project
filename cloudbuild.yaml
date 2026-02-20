@@ -1,0 +1,56 @@
+# cloudbuild.yaml - сборка фронта и бэка в одном репозитории
+# Поддержка substitutions:
+#   _PROJECT_ID - GCP проект
+#   _REGION     - регион Artifact Registry (например us-central1)
+
+substitutions:
+  _PROJECT_ID: "your-project-id"
+  _REGION: "us-central1"
+
+steps:
+  # -------------------------
+  # Build Frontend
+  # -------------------------
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Build Frontend'
+    args:
+      [
+        'build',
+        '-t',
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/frontend:$SHORT_SHA',
+        './frontend'
+      ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Push Frontend'
+    args:
+      [
+        'push',
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/frontend:$SHORT_SHA'
+      ]
+
+  # -------------------------
+  # Build Backend
+  # -------------------------
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Build Backend'
+    args:
+      [
+        'build',
+        '-t',
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/backend:$SHORT_SHA',
+        './backend'
+      ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Push Backend'
+    args:
+      [
+        'push',
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/backend:$SHORT_SHA'
+      ]
+
+# Список образов, которые будут зарегистрированы в Cloud Build
+images:
+  - '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/frontend:$SHORT_SHA'
+  - '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/backend:$SHORT_SHA'

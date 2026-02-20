@@ -19,3 +19,7 @@ variable "repository_name" {
 variable "repository_owner" {
   type = string
 }
+
+variable "repo_name" {
+  type = string  
+}

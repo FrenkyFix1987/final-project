@@ -24,6 +24,16 @@ infra/
         │   ├── main.tf
         │   ├── variables.tf
         │   └── outputs.tf
+        |
+        ├── gke-k8s/
+        │   ├── main.tf
+        │   ├── variables.tf
+        │   └── outputs.tf
+        |
+        ├── cloudbuild/
+        │   ├── main.tf
+        │   ├── variables.tf
+        │   └── outputs.tf
         │
         ├── postgres/
         │   ├── main.tf
@@ -39,3 +49,11 @@ infra/
             ├── main.tf
             ├── variables.tf
             └── outputs.tf
+backend/
+└── terraform/
+    ├── app/
+    └── Dockerfile
+frontend/
+└── terraform/
+    ├── app/
+    └── Dockerfile

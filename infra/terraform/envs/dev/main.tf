@@ -52,7 +52,7 @@ module "artifact_registry" {
   source          = "../../modules/artifact_registry"
   project_id      = var.project_id
   region          = var.region
-  repository_name = "app-repo"
+  repository_name = var.repo_name
 }
 
 module "gke" {
@@ -93,7 +93,7 @@ module "gke-k8s" {
 
 module "cloudbuild" {
   source = "../../modules/cloudbuild"
-
+  repo_name        = var.repo_name
   project_id       = var.project_id
   region           = var.region
   repository_name  = var.repository_name
