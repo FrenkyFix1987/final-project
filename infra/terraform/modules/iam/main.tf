@@ -75,3 +75,9 @@ resource "google_project_iam_member" "cloudbuild_cluster_viewer" {
   role    = "roles/container.clusterViewer"
   member  = "serviceAccount:${google_service_account.cloudbuild_sa.email}"
 }
+
+resource "google_project_iam_member" "cloudbuild_log_viewer" {
+  project = var.project_id
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${google_service_account.cloudbuild_sa.email}"
+}

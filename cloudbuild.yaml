@@ -8,7 +8,7 @@ steps:
       [
         'build',
         '-t',
-        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/frontend:$SHORT_SHA',
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/frontend:latest',
         './frontend'
       ]
 
@@ -17,7 +17,7 @@ steps:
     args:
       [
         'push',
-        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/frontend:$SHORT_SHA'
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/frontend:latest'
       ]
 
   # -------------------------
@@ -29,7 +29,7 @@ steps:
       [
         'build',
         '-t',
-        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:$SHORT_SHA',
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:latest',
         './backend'
       ]
 
@@ -38,13 +38,13 @@ steps:
     args:
       [
         'push',
-        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:$SHORT_SHA'
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:latest'
       ]
-      
+
 options:
   logging: "CLOUD_LOGGING_ONLY"
 
 # Список образов, которые будут зарегистрированы в Cloud Build
 images:
-  - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/frontend:$SHORT_SHA'
-  - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:$SHORT_SHA'
+  - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/frontend:latest'
+  - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:latest'
