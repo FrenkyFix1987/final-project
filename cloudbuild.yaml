@@ -41,30 +41,6 @@ steps:
         '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:latest'
       ]
 
-  - name: 'gcr.io/cloud-builders/gcloud'
-    id: 'Get GKE Credentials'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        gcloud container clusters get-credentials prod-cluster \
-          --region $PROJECT_ID \
-          --project $_REGION
-
-  # -------------------------
-  # Restart Backend Deployment
-  # -------------------------
-  - name: 'gcr.io/cloud-builders/kubectl'
-    id: 'Restart Backend Deployment'
-    args: ['rollout','restart','deployment/backend','-n','prod']
-
-  # -------------------------
-  # Restart Frontend Deployment
-  # -------------------------
-  - name: 'gcr.io/cloud-builders/kubectl'
-    id: 'Restart Frontend Deployment'
-    args: ['rollout','restart','deployment/frontend','-n','prod']
-
 options:
   logging: "CLOUD_LOGGING_ONLY"
 

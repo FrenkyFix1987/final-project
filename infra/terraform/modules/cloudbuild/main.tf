@@ -37,6 +37,5 @@ resource "google_cloudbuild_trigger" "app_trigger" {
   substitutions = {
     _REGION     = var.region
     _REPO_NAME  = var.repo_name
-    _CONTAINER_CLUSTER = var.cluster_name
   }
 }
