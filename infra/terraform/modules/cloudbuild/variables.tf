@@ -30,3 +30,11 @@ variable "cluster_location" {
 variable "cloudbuild_sa" { 
   type = string
 }
+
+variable "installation_id" {
+  type = string
+}
+
+variable "cloudbuild_tocken" {
+  type = string
+}

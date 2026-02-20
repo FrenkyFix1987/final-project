@@ -96,10 +96,22 @@ module "cloudbuild" {
 
   project_id       = var.project_id
   region           = var.region
-  repository_name  = "final-project"
-  repository_owner = "FrenkyFix1987"
+  repository_name  = var.repository_name
+  repository_owner = var.repository_owner
   cloudbuild_sa    = module.iam.cloud_build_sa
 
   cluster_name     = module.gke.cluster_name
   cluster_location = var.region
+  cloudbuild_tocken = module.secrets.secret_versions["github_token"]
+  installation_id = module.secrets.secret_values["installation_id"]
+}
+
+module "secrets" {
+  source       = "../../modules/secrets"
+  project_id   = var.project_id
+   secrets = {
+    github_token = "CloudBuildDeploy-github-oauthtoken-7acc43"
+    installation_id  = "InstallationId"
+  }
+  secret_version = "latest"
 }

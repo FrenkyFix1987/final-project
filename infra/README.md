@@ -30,6 +30,11 @@ infra/
         │   ├── variables.tf
         │   └── outputs.tf
         │
+        ├── secrets/
+        │   ├── main.tf
+        │   ├── variables.tf
+        │   └── outputs.tf
+        |
         └── storage/
             ├── main.tf
             ├── variables.tf
