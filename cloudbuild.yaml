@@ -1,12 +1,3 @@
-# cloudbuild.yaml - сборка фронта и бэка в одном репозитории
-# Поддержка substitutions:
-#   _PROJECT_ID - GCP проект
-#   _REGION     - регион Artifact Registry (например us-central1)
-
-substitutions:
-  _PROJECT_ID: "your-project-id"
-  _REGION: "us-central1"
-
 steps:
   # -------------------------
   # Build Frontend
@@ -17,7 +8,7 @@ steps:
       [
         'build',
         '-t',
-        '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/frontend:$SHORT_SHA',
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/frontend:$SHORT_SHA',
         './frontend'
       ]
 
@@ -26,7 +17,7 @@ steps:
     args:
       [
         'push',
-        '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/frontend:$SHORT_SHA'
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/frontend:$SHORT_SHA'
       ]
 
   # -------------------------
@@ -38,7 +29,7 @@ steps:
       [
         'build',
         '-t',
-        '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/backend:$SHORT_SHA',
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:$SHORT_SHA',
         './backend'
       ]
 
@@ -47,10 +38,13 @@ steps:
     args:
       [
         'push',
-        '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/backend:$SHORT_SHA'
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:$SHORT_SHA'
       ]
+      
+options:
+  logging: "CLOUD_LOGGING_ONLY"
 
 # Список образов, которые будут зарегистрированы в Cloud Build
 images:
-  - '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/frontend:$SHORT_SHA'
-  - '$_REGION-docker.pkg.dev/$PROJECT_ID/my-repo/backend:$SHORT_SHA'
+  - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/frontend:$SHORT_SHA'
+  - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/backend:$SHORT_SHA'
